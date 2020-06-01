@@ -1,0 +1,3 @@
+/home/zhoutao/Project/Chapter3/CMakeFiles/rebuild_cache.dir
+/home/zhoutao/Project/Chapter3/CMakeFiles/Practice3-6.dir
+/home/zhoutao/Project/Chapter3/CMakeFiles/edit_cache.dir
