@@ -52,13 +52,16 @@ namespace std
                 alarm_set.erase(sec);
             }
         }
-        struct tm * tm_local= localtime(NULL);
+
+        time_t time_local;
+        time(&time_local);
+        struct tm * tm_local= localtime(&time_local);
 
         char time_buf[256];
 
-        strftime(time_buf, sizeof(time_buf), "time and date: %r, %a %b %d, %Y", tm_local);
+        //strftime(time_buf, sizeof(time_buf), "time and date: %r, %a %b %d, %Y", tm_local);
         
-        std::cout<<time_buf<<" alarm call"<<std::endl;
+        std::cout<<asctime(tm_local)<<" alarm call"<<std::endl;
     }
 
 };
