@@ -36,21 +36,19 @@ int main(int argc, char*argv[])
     {
         thread_array.push_back(fool::Thread([i](void * param ){ int id =i;printf("Thread %d exit \n",id);},nullptr));
         thread_array[i].start();
-        //thread_array[i].join();
+        
     }
 
 
     
-    printf(" Thread number %lu\n",thread_array.size());
+    
 
-    for (int i = 0; i != 10; i++)
+    for (auto & thread :thread_array)
     {
         
-        thread_array[i].join();
+        thread.join();
     }
 
-
-       pause();
-
+    printf("Main Thread  exit\n ");
 
 }

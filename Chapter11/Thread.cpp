@@ -23,6 +23,16 @@ namespace fool
         thread_number++;
     }
 
+    Thread::Thread(Thread && t)
+    {
+        thread_id = t.thread_id;
+        thread_fun =t.thread_fun;
+        thread_param =t.thread_param;
+        detached =t.detached;
+        started =t.started;
+        thread_number++;
+    }
+
     Thread::~Thread()
     {
         if(!detached && started)
@@ -38,9 +48,10 @@ namespace fool
 
         if(ret !=0)
         {
-            printf("Thread create failed!!!");
+            printf("Thread create failed!!!\n");
             return false;
         }
+        //printf("Thread create succesfully!!!\n");
         started =true;
         return true;
     }

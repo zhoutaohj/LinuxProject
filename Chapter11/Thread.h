@@ -18,7 +18,10 @@ namespace fool
             Thread(const Thread&) =delete;// prohibit copy construction
             const Thread& operator =(const Thread&) =delete; 
 
-            Thread(Thread &&)=default;
+            Thread(Thread &&);
+
+            Thread& operator =(Thread&&) =delete; 
+
             bool start();
             void join();
             void detach();
