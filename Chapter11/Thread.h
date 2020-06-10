@@ -15,12 +15,13 @@ namespace fool
             Thread();
             Thread(ThreadFun,void *);
             ~Thread();
+
             Thread(const Thread&) =delete;// prohibit copy construction
-            const Thread& operator =(const Thread&) =delete; 
+            const Thread& operator=(const Thread&)=delete; 
 
             Thread(Thread &&);
 
-            //Thread& operator =(Thread&&) =delete; 
+            Thread& operator=(Thread&&); 
 
             bool start();
             void join();

@@ -1,0 +1,3 @@
+/home/zhoutao/LinuxProject/Chapter11/CMakeFiles/rebuild_cache.dir
+/home/zhoutao/LinuxProject/Chapter11/CMakeFiles/ThreadTest.dir
+/home/zhoutao/LinuxProject/Chapter11/CMakeFiles/edit_cache.dir

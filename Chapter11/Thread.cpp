@@ -25,12 +25,32 @@ namespace fool
 
     Thread::Thread(Thread && t)
     {
+        if(this ==&t)
+            return;
+        thread_id = t.thread_id;
+        thread_fun =t.thread_fun;
+        thread_param =t.thread_param;
+        detached =t.detached;
+        started =t.started;
+        
+        thread_number++;
+
+        printf("move construction");
+    }
+
+    Thread& Thread::operator=(Thread&& t)
+    {
+        if(this ==&t)
+            return *this;
+
         thread_id = t.thread_id;
         thread_fun =t.thread_fun;
         thread_param =t.thread_param;
         detached =t.detached;
         started =t.started;
         thread_number++;
+        printf("move opeator=");
+        return *this;
     }
 
     Thread::~Thread()
@@ -72,7 +92,9 @@ namespace fool
 
     void Thread::detach()
     {
+        
         pthread_detach(thread_id);
+        detached =true;
     }
 
 };

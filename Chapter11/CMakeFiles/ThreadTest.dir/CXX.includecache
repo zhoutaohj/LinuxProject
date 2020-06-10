@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/zhoutao/LinuxProject/Chapter11/MutexLock.h
+pthread.h
+-
+
+/home/zhoutao/LinuxProject/Chapter11/Thread.h
+pthread.h
+-
+functional
+-
+atomic
+-
+
+/home/zhoutao/LinuxProject/Chapter11/ThreadTest.cpp
+unistd.h
+-
+Thread.h
+/home/zhoutao/LinuxProject/Chapter11/Thread.h
+stdio.h
+-
+vector
+-
+MutexLock.h
+/home/zhoutao/LinuxProject/Chapter11/MutexLock.h
+cond_variable.h
+/home/zhoutao/LinuxProject/Chapter11/cond_variable.h
+queue
+-
+
+/home/zhoutao/LinuxProject/Chapter11/cond_variable.h
+MutexLock.h
+/home/zhoutao/LinuxProject/Chapter11/MutexLock.h
+pthread.h
+-
+

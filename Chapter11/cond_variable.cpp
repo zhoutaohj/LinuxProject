@@ -15,22 +15,28 @@ namespace fool
 
     void cond_variable::wait(MutexLock & mu)
     {
-        while (!flag)
+       /* while (!flag)
         {
             pthread_cond_wait(&_cond_var, &mu.mutex.pthread_mutex);
-        }
+            
+        }*/
+
+        pthread_cond_wait(&_cond_var, &mu.mutex.pthread_mutex);
+        flag = false;
     }
 
     void cond_variable::signal()
     {
-        flag = true;
+        
         pthread_cond_signal(&_cond_var);
+        flag = true;
     }
 
     void cond_variable::broadcast()
     {
-        flag = true;
+        
         pthread_cond_broadcast(&_cond_var);
+        flag = true;
     }
 
 }; // namespace fool
