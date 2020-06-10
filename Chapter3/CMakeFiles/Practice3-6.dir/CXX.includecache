@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/zhoutao/Project/Chapter3/3-6.cpp
+iostream
+-
+unistd.h
+-
+fcntl.h
+-
+cstring
+-
+memory
+-
+
