@@ -14,6 +14,7 @@ namespace fool
     {
         friend class Mutexlock;
         friend class cond_variable;
+
         public:
            Mutex();
            ~Mutex();
@@ -34,7 +35,7 @@ namespace fool
 
     class MutexLock
     {
-        
+        friend class cond_variable;
         public:
             MutexLock(Mutex & mutex);
             ~MutexLock();

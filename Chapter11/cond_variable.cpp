@@ -2,10 +2,10 @@
 
 namespace fool
 {
-    cond_variable::cond_variable(Mutex & m) :_mutex(m)
+    cond_variable::cond_variable()
     {
-        flag =false;
-        pthread_cond_init(&_cond_var,nullptr);
+        flag = false;
+        pthread_cond_init(&_cond_var, nullptr);
     }
 
     cond_variable::~cond_variable()
@@ -13,22 +13,24 @@ namespace fool
         pthread_cond_destroy(&_cond_var);
     }
 
-    void cond_variable::wait()
+    void cond_variable::wait(MutexLock & mu)
     {
         while (!flag)
         {
-            pthread_cond_wait(&cond_variable,&_mutex.get_mutex);
+            pthread_cond_wait(&_cond_var, &mu.mutex.get_mutex());
         }
-        
     }
-
 
     void cond_variable::signal()
     {
         flag = true;
-        pthread_cond_signal(&cond_variable);
-    
-        
+        pthread_cond_signal(&_cond_var);
     }
 
-};
+    void cond_variable::broadcast()
+    {
+        flag = true;
+        pthread_cond_broadcast(&_cond_var);
+    }
+
+}; // namespace fool

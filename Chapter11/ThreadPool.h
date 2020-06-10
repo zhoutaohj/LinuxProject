@@ -12,42 +12,37 @@ namespace fool
 {
     struct Task
     {
-       public:
-       int thread_id;
-       std::vector<char> buffer;
+    public:
+        int thread_id;
+        std::vector<char> buffer;
     };
-    
 
     class Task;
     class ThreadPool
     {
-        public:
-            ThreadPool();  
-            ~ThreadPool();
-            ThreadPool(size_t thread_num);
-            ThreadPool(const ThreadPool& ) =delete;
-            const ThreadPool& operator=(const ThreadPool&) =delete; 
+    public:
+        ThreadPool();
+        ~ThreadPool();
+        ThreadPool(size_t thread_num);
+        ThreadPool(const ThreadPool &) = delete;
+        const ThreadPool &operator=(const ThreadPool &) = delete;
 
-            ThreadPool(ThreadPool && );
+        ThreadPool(ThreadPool &&);
 
-            void start();
+        void start();
 
-            void add_task(const Task &);
-            void remove_task();
-            static void ThreadFun(void *);
+        void add_task(const Task &);
+        void remove_task();
+        static void ThreadFun(void *);
 
-
-        private:
-            int thread_num;
-            int cur_num;
-            std::vector<Thread> thread_vec;
-            std::queue<Task> task_queue;
-            Mutex queue_mutex;
-
+    private:
+        int thread_num;
+        int cur_num;
+        std::vector<Thread> thread_vec;
+        std::queue<Task> task_queue;
+        Mutex queue_mutex;
     };
 
-};
-
-
+}; // namespace fool
 
 #endif

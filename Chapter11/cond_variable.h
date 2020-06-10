@@ -13,7 +13,7 @@ namespace fool
          cond_variable();
         ~ cond_variable();
 
-        void wait();
+        void wait(MutexLock &);
         //void waittime();
         void signal();
         void broadcast();
