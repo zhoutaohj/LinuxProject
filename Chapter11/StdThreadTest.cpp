@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Thread.h"
 #include <memory>
+#include <unistd.h>
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -38,27 +39,31 @@ int main(int argc, char *argv[])
 
 
     std::vector<fool::Thread> mythread_vec;
+	//std::vector<thread> mythread_vec;
 
-	for (int index =0 ;index<3 ;index++)
+
+	for (int index =0 ;index<10 ;index++)
 	{
-        mythread_vec.push_back(fool::Thread ([index](void *) {printf("Thread %d running\n",index); },nullptr));
-        if(mythread_vec[index].start())
-        {
-            printf(" thread %d start \n",index);
-        }	
+        mythread_vec.push_back(fool::Thread([index](void *) { 
+			for(size_t i=0;i!=1000000000;i++)
+			;
+		 printf("Thread %d running\n",index); },nullptr));
+		//mythread_vec[index]=std::move(fool::Thread ([index](void *) { int i=100; printf("Thread %d running\n",index); },nullptr));
+        mythread_vec[index].start();
 	}
 
-   /*  //  for (auto& t : mythread_vec)
-	// {
-        
-	// 	t.start();
-	// } */
+    /*for (auto& t : mythread_vec)
+	{
+		t.start();
+	} */
 
-    printf(" Main : thread number %lu",mythread_vec.size());
+    printf(" Main : thread number %lu\n",mythread_vec.size());
     for (auto& t : mythread_vec)
 	{
         
 		t.join();
 	}
+
+
 }
 

@@ -22,21 +22,21 @@ namespace fool
         thread_num_id =thread_number;
     }
 
-    Thread::Thread(Thread && t)
+    Thread::Thread(Thread && t) 
     {
         if(this ==&t)
             return;
 
-        thread_id = t.thread_id;
-        thread_fun =t.thread_fun;
+        
+        thread_id =t.thread_id;
         thread_param =t.thread_param;
         detached =t.detached;
         started =t.started;
+        thread_fun =t.thread_fun;
+    
         thread_number++;
 
         thread_num_id =thread_number;
-
-        t.init();
 
 
         
@@ -48,15 +48,14 @@ namespace fool
         if(this ==&t)
             return *this;
 
-        thread_id = t.thread_id;
-        thread_fun =t.thread_fun;
+        thread_id =t.thread_id;
         thread_param =t.thread_param;
         detached =t.detached;
         started =t.started;
-        thread_number++;
-        thread_num_id =thread_number;
+        thread_fun =t.thread_fun;
 
-        t.init();
+       // printf("thread %lu move =\n",thread_num_id);
+    
 
         return *this;
     }
@@ -68,13 +67,14 @@ namespace fool
             join();
         }
 
-        printf("thread %lu exit\n",thread_num_id);
+       // printf("thread %lu exit\n",thread_num_id);
 
     }
 
     void Thread::init()
     {
         thread_id =0;
+        thread_num_id =0;
         thread_fun=nullptr;
         thread_param =nullptr;
         detached =false;
@@ -87,7 +87,7 @@ namespace fool
 
         if(ret !=0)
         {
-            printf("Thread create failed!!!\n");
+            //printf("Thread create failed!!!\n");
             return false;
         }
         //printf("Thread create succesfully!!!\n");
@@ -110,14 +110,15 @@ namespace fool
 
     void Thread::join()
     {
-        pthread_join(thread_id,nullptr);
+        if( started )
+            pthread_join(thread_id,nullptr);
         started =false;
     }
 
     void Thread::detach()
     {
-        
-        pthread_detach(thread_id);
+        if(!detached)
+            pthread_detach(thread_id);
         detached =true;
     }
 
