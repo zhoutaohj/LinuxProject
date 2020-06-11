@@ -19,7 +19,6 @@ namespace fool
         void broadcast();
     private:
         
-        bool flag;
         pthread_cond_t _cond_var;
     };
     

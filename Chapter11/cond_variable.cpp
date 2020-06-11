@@ -4,7 +4,6 @@ namespace fool
 {
     cond_variable::cond_variable()
     {
-        flag = false;
         pthread_cond_init(&_cond_var, nullptr);
     }
 
@@ -22,21 +21,21 @@ namespace fool
         }*/
 
         pthread_cond_wait(&_cond_var, &mu.mutex.pthread_mutex);
-        flag = false;
+        
     }
 
     void cond_variable::signal()
     {
         
         pthread_cond_signal(&_cond_var);
-        flag = true;
+       
     }
 
     void cond_variable::broadcast()
     {
         
         pthread_cond_broadcast(&_cond_var);
-        flag = true;
+        
     }
 
 }; // namespace fool

@@ -12,6 +12,7 @@ namespace fool
         detached =false;
         started =false;
         thread_number++;
+        thread_num_id =thread_number;
     }
 
      Thread::Thread(ThreadFun fun,void * param)
@@ -21,21 +22,23 @@ namespace fool
         detached =false;
         started =false;
         thread_number++;
+        thread_num_id =thread_number;
     }
 
     Thread::Thread(Thread && t)
     {
         if(this ==&t)
             return;
+
         thread_id = t.thread_id;
         thread_fun =t.thread_fun;
         thread_param =t.thread_param;
         detached =t.detached;
         started =t.started;
-        
         thread_number++;
+        thread_num_id =thread_number;
+        
 
-        printf("move construction");
     }
 
     Thread& Thread::operator=(Thread&& t)
@@ -49,7 +52,8 @@ namespace fool
         detached =t.detached;
         started =t.started;
         thread_number++;
-        printf("move opeator=");
+        thread_num_id =thread_number;
+
         return *this;
     }
 
@@ -59,6 +63,8 @@ namespace fool
         {
             join();
         }
+
+        printf("thread %lu exit\n",thread_num_id);
 
     }
 
@@ -79,8 +85,13 @@ namespace fool
     void * Thread::run(void* param)
     {
         Thread * pt  =reinterpret_cast<Thread *>(param);
+
         if(pt->thread_fun)
-             pt->thread_fun(pt->thread_param);
+        {
+            printf("thread %lu running\n",pt->thread_num_id);
+            pt->thread_fun(pt->thread_param);
+        }
+             
         return (void*) 0;
     }
 

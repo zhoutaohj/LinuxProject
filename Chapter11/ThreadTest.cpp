@@ -5,6 +5,9 @@
 #include "MutexLock.h"
 #include "cond_variable.h"
 #include <queue>
+#include <thread>
+#include <condition_variable>
+#include <mutex>
 
 void thread_fun(void *param)
 {
@@ -50,6 +53,7 @@ int main(int argc, char *argv[])
         thread.join();
     }*/
 
+    std::condition_variable cv;
     fool::Mutex mutex;
     std::queue<task> task_queue;
     fool::cond_variable cond_empty;

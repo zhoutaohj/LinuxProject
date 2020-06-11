@@ -35,6 +35,7 @@ namespace fool
             void * thread_param;
             bool  detached;
             static std::atomic_int64_t thread_number;
+            size_t thread_num_id;
     };
     
     
