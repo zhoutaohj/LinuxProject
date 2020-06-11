@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "Thread.h"
+#include <memory>
 
 using namespace std;
 int main(int argc, char *argv[])
@@ -13,8 +14,8 @@ int main(int argc, char *argv[])
     std::condition_variable cv;
     int i = 0;
 
-    /*std::vector<thread> thread_vec;
-	thread_vec.push_back(thread ([]() {cout << "thread 1 running!!!" << endl; }));
+    std::vector<thread> thread_vec;
+	/*thread_vec.push_back(thread ([]() {cout << "thread 1 running!!!" << endl; }));
 	thread_vec.push_back(thread ([]() {cout << "thread 2 running!!!" << endl; }));
 	thread_vec.push_back(thread ([]() {cout << "thread 3 running!!!" << endl; }));
 
@@ -27,18 +28,36 @@ int main(int argc, char *argv[])
     // auto fun = [&i]() -> bool { return i == 4; };
     //cv.wait<decltype(fun)>(lock, fun);
 
-    std::vector<fool::Thread> mythread_vec;
-	mythread_vec.push_back(fool::Thread ([](void *) {cout << "mythread 1 running!!!" << endl; },nullptr));
-	mythread_vec.push_back(fool::Thread ([](void *) {cout << "mythread 2 running!!!" << endl; },nullptr));
-	mythread_vec.push_back(fool::Thread ([](void *) {cout << "mythread 3 running!!!" << endl; },nullptr));
+    /*std::vector<std::unique_ptr<fool::Thread>> mythread_vec;
 
-	for (auto& t : mythread_vec)
+	for (int index =0 ;index<3 ;index++)
 	{
-		t.start();
+        mythread_vec.emplace_back(new fool::Thread ([index](void *) {printf("Thread %d running\n",index); },nullptr));
+		mythread_vec[index]->start();
+	}*/
+
+
+    std::vector<fool::Thread> mythread_vec;
+
+	for (int index =0 ;index<3 ;index++)
+	{
+        mythread_vec.push_back(fool::Thread ([index](void *) {printf("Thread %d running\n",index); },nullptr));
+        if(mythread_vec[index].start())
+        {
+            printf(" thread %d start \n",index);
+        }	
 	}
 
+   /*  //  for (auto& t : mythread_vec)
+	// {
+        
+	// 	t.start();
+	// } */
+
+    printf(" Main : thread number %lu",mythread_vec.size());
     for (auto& t : mythread_vec)
 	{
+        
 		t.join();
 	}
 }

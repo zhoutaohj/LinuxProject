@@ -28,6 +28,8 @@ namespace fool
             void detach();
             static void * run(void *);
            
+           private:
+           void  init();
         private:
             pthread_t thread_id;
             bool  started;

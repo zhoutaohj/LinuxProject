@@ -7,10 +7,7 @@ namespace fool
     std::atomic_int64_t Thread::thread_number(0);
     Thread::Thread()
     {
-        thread_fun=nullptr;
-        thread_param =nullptr;
-        detached =false;
-        started =false;
+        init();
         thread_number++;
         thread_num_id =thread_number;
     }
@@ -36,7 +33,12 @@ namespace fool
         detached =t.detached;
         started =t.started;
         thread_number++;
+
         thread_num_id =thread_number;
+
+        t.init();
+
+
         
 
     }
@@ -54,6 +56,8 @@ namespace fool
         thread_number++;
         thread_num_id =thread_number;
 
+        t.init();
+
         return *this;
     }
 
@@ -66,6 +70,15 @@ namespace fool
 
         printf("thread %lu exit\n",thread_num_id);
 
+    }
+
+    void Thread::init()
+    {
+        thread_id =0;
+        thread_fun=nullptr;
+        thread_param =nullptr;
+        detached =false;
+        started =false;
     }
 
     bool Thread::start()
@@ -88,7 +101,7 @@ namespace fool
 
         if(pt->thread_fun)
         {
-            printf("thread %lu running\n",pt->thread_num_id);
+            //printf("thread %lu running\n",pt->thread_num_id);
             pt->thread_fun(pt->thread_param);
         }
              
